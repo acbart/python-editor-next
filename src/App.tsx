@@ -19,6 +19,8 @@ import { MockDeviceConnection } from "./device/mock";
 import DocumentationProvider from "./documentation/documentation-hooks";
 import SearchProvider from "./documentation/search/search-hooks";
 import { ActiveEditorProvider } from "./editor/active-editor-hooks";
+import { EngineContextProvider } from "./engine/engine-hooks";
+import { SkulptEngine } from "./engine/skulpt-engine";
 import { FileSystem } from "./fs/fs";
 import { FileSystemProvider } from "./fs/fs-hooks";
 import { createHost } from "./fs/host";
@@ -48,6 +50,8 @@ const device = isMockDeviceMode()
 const host = createHost(logging);
 const fs = new FileSystem(logging, host, fetchMicroPython);
 
+const engine = new SkulptEngine();
+
 // If this fails then we retry on access.
 fs.initializeInBackground();
 
@@ -74,28 +78,30 @@ const App = () => {
             <SessionSettingsProvider>
               <TranslationProvider>
                 <DeviceContextProvider value={device}>
-                  <FileSystemProvider value={fs}>
-                    <LanguageServerClientProvider>
-                      <SyncStatusProvider>
-                        <BeforeUnloadDirtyCheck />
-                        <DocumentationProvider>
-                          <SearchProvider>
-                            <SelectionProvider>
-                              <DialogProvider>
-                                <RouterProvider>
-                                  <ProjectDropTarget>
-                                    <ActiveEditorProvider>
-                                      <Workbench />
-                                    </ActiveEditorProvider>
-                                  </ProjectDropTarget>
-                                </RouterProvider>
-                              </DialogProvider>
-                            </SelectionProvider>
-                          </SearchProvider>
-                        </DocumentationProvider>
-                      </SyncStatusProvider>
-                    </LanguageServerClientProvider>
-                  </FileSystemProvider>
+                  <EngineContextProvider value={engine}>
+                    <FileSystemProvider value={fs}>
+                      <LanguageServerClientProvider>
+                        <SyncStatusProvider>
+                          <BeforeUnloadDirtyCheck />
+                          <DocumentationProvider>
+                            <SearchProvider>
+                              <SelectionProvider>
+                                <DialogProvider>
+                                  <RouterProvider>
+                                    <ProjectDropTarget>
+                                      <ActiveEditorProvider>
+                                        <Workbench />
+                                      </ActiveEditorProvider>
+                                    </ProjectDropTarget>
+                                  </RouterProvider>
+                                </DialogProvider>
+                              </SelectionProvider>
+                            </SearchProvider>
+                          </DocumentationProvider>
+                        </SyncStatusProvider>
+                      </LanguageServerClientProvider>
+                    </FileSystemProvider>
+                  </EngineContextProvider>
                 </DeviceContextProvider>
               </TranslationProvider>
             </SessionSettingsProvider>

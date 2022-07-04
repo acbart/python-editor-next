@@ -22,6 +22,7 @@ import {
   WebUSBError,
   WebUSBErrorCode,
 } from "../device/device";
+import { SkulptEngine } from "../engine/skulpt-engine";
 import { FileSystem, MAIN_FILE, Statistics, VersionAction } from "../fs/fs";
 import {
   getLowercaseFileExtension,
@@ -98,7 +99,8 @@ export class ProjectActions {
     },
     private intl: IntlShape,
     private logging: Logging,
-    private client: LanguageServerClient | undefined
+    private client: LanguageServerClient | undefined,
+    private engine: SkulptEngine
   ) {}
 
   private get project(): DefaultedProject {
@@ -848,6 +850,10 @@ export class ProjectActions {
       { changeName: change.name }
     );
   };
+
+  run = async (): Promise<void> => {
+    return this.engine.run();
+  }
 }
 
 export const defaultedProject = (

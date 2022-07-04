@@ -16,6 +16,7 @@ import { useLogging } from "../logging/logging-hooks";
 import { useSettings } from "../settings/settings";
 import { useSelection } from "../workbench/use-selection";
 import { defaultedProject, ProjectActions } from "./project-actions";
+import { useEngine } from "../engine/engine-hooks";
 
 /**
  * Hook exposing the main UI actions.
@@ -30,6 +31,7 @@ export const useProjectActions = (): ProjectActions => {
   const intl = useIntl();
   const client = useLanguageServerClient();
   const [settings, setSettings] = useSettings();
+  const engine = useEngine();
   const actions = useMemo<ProjectActions>(
     () =>
       new ProjectActions(
@@ -41,7 +43,8 @@ export const useProjectActions = (): ProjectActions => {
         { values: settings, setValues: setSettings },
         intl,
         logging,
-        client
+        client,
+        engine
       ),
     [
       fs,
@@ -54,6 +57,7 @@ export const useProjectActions = (): ProjectActions => {
       client,
       settings,
       setSettings,
+      engine
     ]
   );
   return actions;
