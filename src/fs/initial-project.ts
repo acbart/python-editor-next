@@ -39,5 +39,9 @@ print("Hello world!")
 export const defaultInitialProject: PythonProject = {
   files: projectFilesToBase64({
     [MAIN_FILE]: defaultMainFileContent,
+    "on_run.py": `
+from pedal import *
+ensure_literal('Hello World')
+    `
   }),
 };
