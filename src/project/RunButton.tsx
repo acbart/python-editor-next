@@ -32,7 +32,7 @@ const RunButton = ({ size }: RunButtonProps) => {
     const intl = useIntl();
     const handleRun = useCallback(async () => {
         try {
-            //await actions.run();
+            await actions.run();
         } finally {
             console.log("Finished execution");
         }

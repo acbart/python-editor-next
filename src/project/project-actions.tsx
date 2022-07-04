@@ -852,7 +852,7 @@ export class ProjectActions {
   };
 
   run = async (): Promise<void> => {
-    return this.engine.run();
+    return this.engine.run(MAIN_FILE, this.fs);
   }
 }
 
