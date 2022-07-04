@@ -1,4 +1,4 @@
-export var $builtinmodule = function(name) {
+Sk.builtinFiles.files["src/lib/image.js"] = "var $builtinmodule =" + (function(name) {
     var mod, sampleWrapper;
     mod = {__name__: "image"};
 
@@ -139,4 +139,4 @@ export var $builtinmodule = function(name) {
     mod.Image = Sk.misceval.buildClass(mod, image, "Image", []);
 
     return mod;
-};
+}).toString();

@@ -6,9 +6,11 @@
  *
  *
  */
-export let $sk_mod_instructor = function() {
+Sk.builtinFiles.files["./_instructor/__init__.js"] = "var $builtinmodule = function(mod){ return mod; }";
+Sk.builtinFiles.files["src/lib/utility/__init__.js"] = "var $builtinmodule = " + (function() {
     // Main module object that gets returned at the end.
     let mod = {};
+    console.log(mod);
     let none = Sk.builtin.none.none$;
     
     let prior = null;
@@ -350,4 +352,4 @@ export let $sk_mod_instructor = function() {
     });
     
     return mod;
-};
+}).toString();

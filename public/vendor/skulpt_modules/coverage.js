@@ -1,4 +1,4 @@
-export const $sk_mod_coverage = `
+Sk.builtinFiles.files["src/lib/coverage.py"] = `
 """
 Hideous fill-in replacement for Coverage, leveraging some magic from the
 Utility function. The data this returns is false - it doesn't actually

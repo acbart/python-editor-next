@@ -1,4 +1,5 @@
-export const $pedal_tracer = `
+delete Sk.builtinFiles.files["src/lib/pedal/sandbox/tracer.js"];
+Sk.builtinFiles.files["src/lib/pedal/sandbox/tracer.py"] = `
 
 """
 Wraps the tracer module in Pedal
