@@ -1191,6 +1191,18 @@
       "value": "count"
     }
   ],
+  "run-action": [
+    {
+      "type": 0,
+      "value": "Run code"
+    }
+  ],
+  "run-hover": [
+    {
+      "type": 0,
+      "value": "Run the code locally in your browser"
+    }
+  ],
   "search": [
     {
       "type": 0,
