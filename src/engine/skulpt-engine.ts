@@ -5,6 +5,7 @@ interface ExecutionConfiguration {
     code: string
 }
 
+const INSTRUCTOR_FILE = "on_run.py";
 
 export class SkulptEngine {
     run = async (filename: string, fs: FileSystem): Promise<void> => {
@@ -12,20 +13,23 @@ export class SkulptEngine {
         const mainProgram = new TextDecoder().decode(content.data);
         console.log("Run the code!", mainProgram);
         await this.executeStudent(filename, mainProgram);
-        await this.executeInstructor();
+        const onRunCode = new TextDecoder().decode((await fs.read(INSTRUCTOR_FILE)).data);
+        await this.executeInstructor(onRunCode);
         console.log("DONE");
     }
 
     private executeStudent = async (filename: string, code: string): Promise<void> => {
+        Sk.executionReports = {
+            student: {}
+        }
         return this.execute({
             filename, code
         });
     }
 
-    private executeInstructor = async (): Promise<void> => {
+    private executeInstructor = async (code: string): Promise<void> => {
         return this.execute({
-            filename: "on_run.py",
-            code: "#from pedal import *"
+            filename: INSTRUCTOR_FILE, code
         });
     }
     private execute = async(configuration: ExecutionConfiguration): Promise<void> => {
@@ -34,7 +38,11 @@ export class SkulptEngine {
             output: console.log
         });
         return Sk.misceval.asyncToPromise(() =>
-            Sk.importMainWithBody(configuration.filename, false, configuration.code, true)
+            Sk.importMainWithBody(this.chompExtension(configuration.filename), false, configuration.code, true)
         );
+    }
+
+    private chompExtension = (filename: string): string => {
+        return filename.substring(0, filename.lastIndexOf("."));
     }
 }
