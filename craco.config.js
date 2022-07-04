@@ -19,6 +19,9 @@ module.exports = {
         : path.resolve(__dirname, internal),
     },
     configure: {
+      externals: {
+        "Sk": "Sk"
+      },
       ignoreWarnings: [
         // Temporary version of https://github.com/facebook/create-react-app/pull/11752
         function ignoreSourcemapsloaderWarnings(warning) {
