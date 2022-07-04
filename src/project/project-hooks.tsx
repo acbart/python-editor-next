@@ -16,7 +16,8 @@ import { useLogging } from "../logging/logging-hooks";
 import { useSettings } from "../settings/settings";
 import { useSelection } from "../workbench/use-selection";
 import { defaultedProject, ProjectActions } from "./project-actions";
-import { useEngine } from "../engine/engine-hooks";
+import { useEngineData } from "../engine/engine-hooks";
+import { SkulptEngine } from "../engine/skulpt-engine";
 
 /**
  * Hook exposing the main UI actions.
@@ -31,7 +32,8 @@ export const useProjectActions = (): ProjectActions => {
   const intl = useIntl();
   const client = useLanguageServerClient();
   const [settings, setSettings] = useSettings();
-  const engine = useEngine();
+  const engineData = useEngineData();
+  const engine = new SkulptEngine();
   const actions = useMemo<ProjectActions>(
     () =>
       new ProjectActions(
@@ -44,6 +46,7 @@ export const useProjectActions = (): ProjectActions => {
         intl,
         logging,
         client,
+        engineData,
         engine
       ),
     [

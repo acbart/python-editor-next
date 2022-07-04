@@ -22,6 +22,7 @@ import {
   WebUSBError,
   WebUSBErrorCode,
 } from "../device/device";
+import { EngineHook } from "../engine/engine-hooks";
 import { SkulptEngine } from "../engine/skulpt-engine";
 import { FileSystem, MAIN_FILE, Statistics, VersionAction } from "../fs/fs";
 import {
@@ -100,6 +101,7 @@ export class ProjectActions {
     private intl: IntlShape,
     private logging: Logging,
     private client: LanguageServerClient | undefined,
+    private engineData: EngineHook,
     private engine: SkulptEngine
   ) {}
 
@@ -852,7 +854,7 @@ export class ProjectActions {
   };
 
   run = async (): Promise<void> => {
-    return this.engine.run(MAIN_FILE, this.fs);
+    return this.engine.run(MAIN_FILE, this.fs, this.engineData.dispatch);
   }
 }
 
