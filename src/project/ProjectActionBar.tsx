@@ -7,6 +7,7 @@ import { BoxProps, HStack } from "@chakra-ui/react";
 import SendButton from "./SendButton";
 import DownloadMenuButton from "./DownloadMenuButton";
 import OpenButton from "./OpenButton";
+import RunButton from "./RunButton";
 
 const ProjectActionBar = (props: BoxProps) => {
   const size = "lg";
@@ -19,6 +20,7 @@ const ProjectActionBar = (props: BoxProps) => {
       pl={10}
       pr={10}
     >
+      <RunButton size={size}/>
       <SendButton size={size} />
       <HStack spacing={2.5}>
         <DownloadMenuButton size={size} />
