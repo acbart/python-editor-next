@@ -1,7 +1,8 @@
 {
   "name": "python-editor",
+  "homepage": "https://acbart.github.io/python-editor-next/",
   "version": "0.1.0-local",
-  "author": "Micro:bit Educational Foundation <package-help@microbit.org>",
+  "author": "acbart|Micro:bit Educational Foundation <package-help@microbit.org>",
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -45,6 +46,7 @@
     "easymde": "^2.16.1",
     "file-saver": "^2.0.5",
     "framer-motion": "^5.6.0",
+    "gh-pages": "^4.0.0",
     "lodash.debounce": "^4.0.8",
     "lodash.sortby": "^4.7.0",
     "lunr": "^2.3.9",
@@ -99,7 +101,8 @@
     "test:e2e": "craco test --testPathPattern e2e -w 1 --testTimeout 15000",
     "test:e2e:headless": "CI=true npm run test:e2e",
     "ci:update-version": "update-ci-version",
-    "deploy": "website-deploy-aws",
+    "predeploy": "craco build",
+    "deploy": "gh-pages -d build",
     "invalidate": "aws cloudfront create-invalidation --distribution-id $(printenv ${STAGE}_CLOUDFRONT_DISTRIBUTION_ID) --paths \"/*\"",
     "i18n:compile": "node bin/tidy-lang.js && formatjs compile-folder --ast lang src/messages",
     "i18n:convert": "node bin/tidy-lang.js && node bin/crowdin-convert.js",
