@@ -18,6 +18,7 @@ import { useSelection } from "../workbench/use-selection";
 import { defaultedProject, ProjectActions } from "./project-actions";
 import { useEngineData } from "../engine/engine-hooks";
 import { SkulptEngine } from "../engine/skulpt-engine";
+import { useMicroSim } from "../simulator/simulator-hooks";
 
 /**
  * Hook exposing the main UI actions.
@@ -32,6 +33,7 @@ export const useProjectActions = (): ProjectActions => {
   const intl = useIntl();
   const client = useLanguageServerClient();
   const [settings, setSettings] = useSettings();
+  const microSim = useMicroSim();
   const engineData = useEngineData();
   const engine = new SkulptEngine();
   const actions = useMemo<ProjectActions>(
@@ -46,6 +48,7 @@ export const useProjectActions = (): ProjectActions => {
         intl,
         logging,
         client,
+        microSim,
         engineData,
         engine
       ),
@@ -60,7 +63,9 @@ export const useProjectActions = (): ProjectActions => {
       client,
       settings,
       setSettings,
-      engine
+      engineData,
+      engine,
+      microSim
     ]
   );
   return actions;

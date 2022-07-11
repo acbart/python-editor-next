@@ -35,6 +35,7 @@ import { PythonProject } from "../fs/initial-project";
 import { LanguageServerClient } from "../language-server/client";
 import { Logging } from "../logging/logging";
 import { Settings } from "../settings/settings";
+import { MicroSimHook } from "../simulator/simulator-hooks";
 import ConnectDialog, {
   ConnectHelpChoice,
 } from "../workbench/connect-dialogs/ConnectDialog";
@@ -101,6 +102,7 @@ export class ProjectActions {
     private intl: IntlShape,
     private logging: Logging,
     private client: LanguageServerClient | undefined,
+    private microSim: MicroSimHook,
     private engineData: EngineHook,
     private engine: SkulptEngine
   ) {}
@@ -854,7 +856,7 @@ export class ProjectActions {
   };
 
   run = async (): Promise<void> => {
-    return this.engine.run(MAIN_FILE, this.fs, this.engineData.dispatch);
+    return this.engine.run(MAIN_FILE, this.fs, this.engineData.dispatch, this.microSim);
   }
 }
 

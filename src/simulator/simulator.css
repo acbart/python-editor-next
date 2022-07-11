@@ -1,0 +1,130 @@
+.sim {
+    width: 255px;
+    height: 208px;
+}
+
+.sim .sim-board {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.sim .sim-label {
+    color: white;
+}
+
+.sim .sim-header {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.sim .sim-light-sensor {
+    border-radius: 35px;
+    background-color: yellow;
+    border: 2px solid white;
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.sim .sim-compass {
+    border-radius: 35px;
+    background-color: black;
+    border: 2px solid white;
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.sim .sim-compass:after {
+    border-radius: 5px;
+    border: 2px solid white;
+    width: 10px;
+    height: 2px;
+    margin-left: 15px;
+    margin-top: 10px;
+    content: "";
+    display: block;
+    transform: rotate(-45deg);
+}
+
+.sim .sim-middle {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sim .sim-button {
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    border: 1px solid black;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.sim .sim-leds {
+    width: 128px;
+    height: 100px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+}
+
+.sim .sim-leds div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+.sim .sim-led {
+    width: 5px;
+    height: 10px;
+    background-color: gray;
+    content: "";
+}
+
+.sim .sim-led.active {
+    background-color: rgb(255, 127, 127);
+    filter: url("#ledglow");
+    box-shadow: 0px 0px 3px 2px #f77;
+}
+
+.sim .sim-pins {
+    width: 100%;
+    height: 50px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+}
+
+.sim .sim-pin {
+    background-color: goldenrod;
+    width: 20px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.sim .sim-ring {
+    background-color: goldenrod;
+    width: 40px;
+    height: 50px;
+    border: 1px solid black;
+    font-size: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}

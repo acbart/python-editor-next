@@ -11,6 +11,7 @@ import RunButton from "./RunButton";
 import { useEngineData } from "../engine/engine-hooks";
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { MicroSimulator } from "../simulator/MicroSimulator";
 
 const ProjectActionBar = (props: BoxProps) => {
   const engine = useEngineData();
@@ -41,6 +42,9 @@ const ProjectActionBar = (props: BoxProps) => {
         pl={10}
         pr={10}
       >
+        <div>
+          <MicroSimulator></MicroSimulator>
+        </div>
         <div>
           <strong>Console</strong><br/>
           <div style={{backgroundColor: 'white', borderColor: '1px solid black'}}>
