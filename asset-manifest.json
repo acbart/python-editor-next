@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/python-editor-next/static/css/main.ce56e1f0.css",
-    "main.js": "/python-editor-next/static/js/main.e565db82.js",
+    "main.css": "/python-editor-next/static/css/main.738b49b7.css",
+    "main.js": "/python-editor-next/static/js/main.4f7320d7.js",
     "static/js/248.0784a42e.chunk.js": "/python-editor-next/static/js/248.0784a42e.chunk.js",
     "static/js/728.97cd95ac.chunk.js": "/python-editor-next/static/js/728.97cd95ac.chunk.js",
     "static/js/15.001629db.chunk.js": "/python-editor-next/static/js/15.001629db.chunk.js",
@@ -23,15 +23,15 @@
     "static/media/python-logo.svg": "/python-editor-next/static/media/python-logo.6424b098f24ca66d7fe9abe985531528.svg",
     "index.html": "/python-editor-next/index.html",
     "static/media/drag-image.svg": "/python-editor-next/static/media/drag-image.2bce3237f83c1637f3dab6b25eecbe65.svg",
-    "main.ce56e1f0.css.map": "/python-editor-next/static/css/main.ce56e1f0.css.map",
-    "main.e565db82.js.map": "/python-editor-next/static/js/main.e565db82.js.map",
+    "main.738b49b7.css.map": "/python-editor-next/static/css/main.738b49b7.css.map",
+    "main.4f7320d7.js.map": "/python-editor-next/static/js/main.4f7320d7.js.map",
     "728.97cd95ac.chunk.js.map": "/python-editor-next/static/js/728.97cd95ac.chunk.js.map",
     "787.f21dd809.chunk.js.map": "/python-editor-next/static/js/787.f21dd809.chunk.js.map",
     "306.9e4c56ca.chunk.js.map": "/python-editor-next/static/js/306.9e4c56ca.chunk.js.map",
     "424.b85e62fc.chunk.js.map": "/python-editor-next/static/js/424.b85e62fc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce56e1f0.css",
-    "static/js/main.e565db82.js"
+    "static/css/main.738b49b7.css",
+    "static/js/main.4f7320d7.js"
   ]
 }
