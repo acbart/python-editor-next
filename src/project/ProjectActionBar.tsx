@@ -11,9 +11,11 @@ import RunButton from "./RunButton";
 import { useEngineData } from "../engine/engine-hooks";
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import { MicroSimulator } from "../simulator/MicroSimulator";
+import {useRef} from "react";
+import '../simulator/simulator.css';
 
 const ProjectActionBar = (props: BoxProps) => {
+  const simElement = useRef(null);
   const engine = useEngineData();
   const size = "lg";
   return (
@@ -26,7 +28,7 @@ const ProjectActionBar = (props: BoxProps) => {
         pl={10}
         pr={10}
       >
-        <RunButton size={size}/>
+        <RunButton size={size} simElement={simElement}/>
         <SendButton size={size} />
         <HStack spacing={2.5}>
           <DownloadMenuButton size={size} />
@@ -43,7 +45,7 @@ const ProjectActionBar = (props: BoxProps) => {
         pr={10}
       >
         <div>
-          <MicroSimulator></MicroSimulator>
+          <div className="sim" ref={simElement}></div>
         </div>
         <div>
           <strong>Console</strong><br/>

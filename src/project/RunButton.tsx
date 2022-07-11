@@ -24,15 +24,16 @@ import MoreMenuButton from "./MoreMenuButton";
 import { useProjectActions } from "./project-hooks";
 
 interface RunButtonProps {
+    simElement: React.Ref<any>;
     size?: ThemeTypings["components"]["Button"]["sizes"];
 }
 
-const RunButton = ({ size }: RunButtonProps) => {
+const RunButton = ({ size, simElement }: RunButtonProps) => {
     const actions = useProjectActions();
     const intl = useIntl();
     const handleRun = useCallback(async () => {
         try {
-            await actions.run();
+            await actions.run(simElement);
         } finally {
             console.log("Finished execution");
         }

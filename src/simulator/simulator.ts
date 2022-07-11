@@ -1,8 +1,8 @@
-import React, { ReactNode, useReducer } from "react";
-import { useContext } from "react";
-
-
 export type PinIndex = string | '3V3' | 'GND' | '3V*' | 'GND*';
+
+export const PIN_ORDER: string[] = ["3", "0", "4", "5", "6", "7", "1", "8", "9", "10", "11", 
+"12", "2", "13", "14", "15", "16", '3V3A', '3V', '3V3B', "19", "20", 'GND1', 'GND', 'GND2'];
+export const PIN_RINGS: string[] = ["0", "1", "2", '3V', 'GND'];
 
 export interface MicroSim {
     leds: string[][]
@@ -16,16 +16,6 @@ export interface MicroSim {
     running: boolean
 }
 
-export const PIN_ORDER: string[] = ["3", "0", "4", "5", "6", "7", "1", "8", "9", "10", "11", 
-"12", "2", "13", "14", "15", "16", '3V3A', '3V', '3V3B', "19", "20", 'GND1', 'GND', 'GND2'];
-export const PIN_RINGS: string[] = ["0", "1", "2", '3V', 'GND']
-
-export interface MicroSimHook {
-    state: MicroSim,
-    dispatch: React.Dispatch<any>
-}
-
-const MicroSimContext = React.createContext<undefined | MicroSimHook>(undefined);
 
 type MICRO_SIM_ACTIONS = 
     {type: "SET_NUMERIC_FIELD", field: 'temperature' | 'light' | 'accelerometer' | 'compass', value: number} |
@@ -75,27 +65,4 @@ const microSimReducer = (state: MicroSim, action: MICRO_SIM_ACTIONS) => {
         case "STOP":
             return {...state, running: false};
     }
-};
-
-export const MicroSimContextProvider = ({ children }: { children: ReactNode }) => {
-    const [state, dispatch] = useReducer(microSimReducer, newMicroSim());
-
-    return (
-        <MicroSimContext.Provider value={{state, dispatch}}>
-            {children}
-        </MicroSimContext.Provider>
-    )
-};
-
-/**
- * Hook to access the device from UI code.
- *
- * @returns The device.
- */
-export const useMicroSim = () => {
-    const microSim = useContext(MicroSimContext);
-    if (!microSim) {
-        throw new Error("Missing provider.");
-    }
-    return microSim;
 };

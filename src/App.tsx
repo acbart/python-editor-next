@@ -31,7 +31,6 @@ import ProjectDropTarget from "./project/ProjectDropTarget";
 import { RouterProvider } from "./router-hooks";
 import SessionSettingsProvider from "./settings/session-settings";
 import SettingsProvider from "./settings/settings";
-import { MicroSimContextProvider } from "./simulator/simulator-hooks";
 import BeforeUnloadDirtyCheck from "./workbench/BeforeUnloadDirtyCheck";
 import { SelectionProvider } from "./workbench/use-selection";
 import Workbench from "./workbench/Workbench";
@@ -76,32 +75,30 @@ const App = () => {
             <SessionSettingsProvider>
               <TranslationProvider>
                 <DeviceContextProvider value={device}>
-                  <MicroSimContextProvider>
-                    <EngineContextProvider>
-                      <FileSystemProvider value={fs}>
-                        <LanguageServerClientProvider>
-                          <SyncStatusProvider>
-                            <BeforeUnloadDirtyCheck />
-                            <DocumentationProvider>
-                              <SearchProvider>
-                                <SelectionProvider>
-                                  <DialogProvider>
-                                    <RouterProvider>
-                                      <ProjectDropTarget>
-                                        <ActiveEditorProvider>
-                                          <Workbench />
-                                        </ActiveEditorProvider>
-                                      </ProjectDropTarget>
-                                    </RouterProvider>
-                                  </DialogProvider>
-                                </SelectionProvider>
-                              </SearchProvider>
-                            </DocumentationProvider>
-                          </SyncStatusProvider>
-                        </LanguageServerClientProvider>
-                      </FileSystemProvider>
-                    </EngineContextProvider>
-                  </MicroSimContextProvider>
+                  <EngineContextProvider>
+                    <FileSystemProvider value={fs}>
+                      <LanguageServerClientProvider>
+                        <SyncStatusProvider>
+                          <BeforeUnloadDirtyCheck />
+                          <DocumentationProvider>
+                            <SearchProvider>
+                              <SelectionProvider>
+                                <DialogProvider>
+                                  <RouterProvider>
+                                    <ProjectDropTarget>
+                                      <ActiveEditorProvider>
+                                        <Workbench />
+                                      </ActiveEditorProvider>
+                                    </ProjectDropTarget>
+                                  </RouterProvider>
+                                </DialogProvider>
+                              </SelectionProvider>
+                            </SearchProvider>
+                          </DocumentationProvider>
+                        </SyncStatusProvider>
+                      </LanguageServerClientProvider>
+                    </FileSystemProvider>
+                  </EngineContextProvider>
                 </DeviceContextProvider>
               </TranslationProvider>
             </SessionSettingsProvider>

@@ -1,6 +1,5 @@
 import React from "react";
 import { FileSystem } from "../fs/fs";
-import { MicroSimHook } from "../simulator/simulator-hooks";
 import { EngineData, useEngineData } from "./engine-hooks";
 import { WRAP_INSTRUCTOR_CODE } from "./on-run-template";
 
@@ -8,7 +7,7 @@ interface ExecutionConfiguration {
     filename: string
     code: string
     dispatch: React.Dispatch<any>
-    sim: MicroSimHook
+    sim: React.Ref<any>
 }
 
 const INSTRUCTOR_FILE = "on_run.py";
@@ -17,10 +16,9 @@ export type SkulptResult = Record<string, Record<string, any>>;
 
 export class SkulptEngine {
 
-    run = async (filename: string, fs: FileSystem, dispatch: React.Dispatch<any>, sim: MicroSimHook): Promise<void> => {
+    run = async (filename: string, fs: FileSystem, dispatch: React.Dispatch<any>, sim: React.Ref<any>): Promise<void> => {
         const content = await fs.read(filename);
         const mainProgram = new TextDecoder().decode(content.data);
-        sim.dispatch({type: "START"});
         console.log("Run the code!", mainProgram);
         dispatch({type: "CLEAR_OUTPUT"});
         try {
@@ -34,10 +32,9 @@ export class SkulptEngine {
         }, dispatch, sim);
         dispatch({type: "FEEDBACK", title: result.$d.LABEL.v, message: result.$d.MESSAGE.v});
         console.log("DONE", result);
-        sim.dispatch({type: "STOP"});
     }
 
-    private executeStudent = async (filename: string, code: string, dispatch: React.Dispatch<any>, sim: MicroSimHook): Promise<SkulptResult> => {
+    private executeStudent = async (filename: string, code: string, dispatch: React.Dispatch<any>, sim: React.Ref<any>): Promise<SkulptResult> => {
         Sk.executionReports = {
             student: {
                 tracing: []
@@ -48,7 +45,7 @@ export class SkulptEngine {
         });
     }
 
-    private executeInstructor = async (code: string, studentCode: Record<string, string>, dispatch: React.Dispatch<any>, sim: MicroSimHook): Promise<SkulptResult> => {
+    private executeInstructor = async (code: string, studentCode: Record<string, string>, dispatch: React.Dispatch<any>, sim: React.Ref<any>): Promise<SkulptResult> => {
         return this.execute({
             filename: INSTRUCTOR_FILE, 
             code: WRAP_INSTRUCTOR_CODE(studentCode, code, false, false),

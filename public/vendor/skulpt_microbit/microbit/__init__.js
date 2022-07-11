@@ -11,7 +11,43 @@ const PythonIDE = {
 	microbit_firmware: "",
 }
 
-var uart = function skMicroBit(name) {
+const PIN_ORDER = ["3", "0", "4", "5", "6", "7", "1", "8", "9", "10", "11", 
+"12", "2", "13", "14", "15", "16", '3V3A', '3V', '3V3B', "19", "20", 'GND1', 'GND', 'GND2'];
+const PIN_RINGS = ["0", "1", "2", '3V', 'GND'];
+
+const PIN_UI = PIN_ORDER.map(pinIndex =>
+	PIN_RINGS.includes(pinIndex) ? 
+	`<div class="sim-ring">${pinIndex}</div>` :
+	`<div class="sim-pin"> </div>`
+).join("\n");
+
+const LED_UI = [...Array(5)].map((_, row) => 
+	"<div class='sim-led-row'>" + [...Array(5)].map((_, column) =>
+		`<span class='sim-led sim-led-row-${row} sim-led-column-${column}' style='opacity: 0'></span>`
+	) + "</div>"
+).join("\n");
+
+const SIMULATOR_UI = `
+<div class="sim-board">
+	<div class="sim-header">
+		<div class="sim-triangles"></div>
+		<div class="sim-light-sensor"></div>
+		<span class="sim-label"></span>
+		<div class="sim-compass"></div>
+		<span class="sim-label"></span>
+	</div>
+	<div class="sim-middle">
+		<div class="sim-button sim-button-A">A</div>
+		<div class="sim-leds">
+			${LED_UI}
+		</div>
+		<div class="sim-button sim-button-B">B</div>
+	</div>
+	<div class="sim-pins">${PIN_UI}</div>
+</div>
+`;
+
+var uart = function (name) {
 
 	var mod = {};
 	var init = function(baudrate, bits, parity, stop, tx, rx) {
@@ -746,8 +782,19 @@ var display = function(name) {
 
 	function setLED(x, y, brightness) {
 		//$('.mb_led.mb_led_row_' + y + '.mb_led_col_' + x).removeClass('mb_led_brightness_1 mb_led_brightness_2 mb_led_brightness_3 mb_led_brightness_4 mb_led_brightness_5 mb_led_brightness_6 mb_led_brightness_7 mb_led_brightness_8 mb_led_brightness_9').addClass('mb_led_brightness_' + brightness);
-		Sk.microbitSim.dispatch({type: "SET_LED", x, y, value: brightness});
-		leds[y][x] = brightness;
+		//({type: "SET_LED", x, y, value: brightness});
+		const led = Sk.microbitSim.current.querySelector(`.sim-led-row-${y}.sim-led-column-${x}`);
+		if (brightness > 0) {
+			if (!led.classList.contains("active")) {
+				led.classList.add("active");
+			}
+			led.style.opacity = brightness/10;
+		} else {
+			if (led.classList.contains("active")) {
+				led.classList.remove("active");
+			}
+			led.style.opacity = 1;
+		}
 	}
 
 	var mod = {};
@@ -1388,6 +1435,8 @@ var $builtinmodule = function (name) {
 		},
 
 		init: function() {
+			Sk.microbitSim.current.innerHTML = SIMULATOR_UI;
+			
 			/*if(PythonIDE.microbit_firmware == undefined) {
 				$.get('lib/skulpt/microbit/firmware.hex', undefined, function(firmware) {
 					PythonIDE.microbit_firmware = firmware;
